@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="testApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="assets/css/mystyles.css" rel="stylesheet">
+    <title>Test App</title>
+</head>
+
+<body ng-controller="PageController">
+    
+   <header class="jumbotron">
+        <div class="container">
+            <div class="row row-header">
+                <div class="col-xs-12 col-sm-6">
+                    <h1>NTR Lab</h1>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                </div>         
+            </div>
+        </div>
+    </header>
+    
+    <div id="textModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" id="closeModal">&times;</button>
+                    <h4 class="modal-title">Create / Edit </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="textForm" name="textForm" ng-submit="saveForm()" novalidate="true">
+                        <div class="form-group" ng-class="{ 'has-error' : textForm.noteText.$error.required && !textForm.noteText.$pristine }">
+                            <label for="text" class="col-xs-12 col-sm-12">Text</label>
+                            <div class="col-xs-12 col-sm-12">
+                                <textarea name="noteText" id="noteText" class="form-control" rows="5" required="required" ng-model="form.noteText"></textarea>
+                                <span ng-show="textForm.noteText.$error.required && !textForm.noteText.$pristine" class="help-block">Some text is required.</span>
+                            </div>
+                        </div>
+                        <input type="hidden" name="noteId" id="noteId" ng-model="form.noteId">
+                        <button type="submit" class="btn btn-success" ng-disabled="textForm.$invalid">Save</button>
+                        <button type="button" class="btn btn-warning" ng-click="undo()" ng-disabled="textForm.noteText.$pristine">Undo</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </form>                    
+                </div>
+            </div>
+        </div>
+    </div>    
+    
+    <div class="container">
+        <div class="row row-content">
+            <div class="col-xs-12 col-sm-9">
+                <h3 align="left">Create a new note or edit an existing one!</h3>
+            </div>
+            <div class="col-xs-12 col-sm-3">
+                <h3 align="center"><a class="btn btn-success btn-lg" data-toggle="modal" data-target="#textModal" ng-click="addNote()" href="#">Add note</a></h3>
+            </div>
+        </div>
+        
+        <div class="row row-notes">
+            <div class="col-xs-12 col-sm-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Text</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="note in notes">
+                            <td>{{note.id}}</td>
+                            <td>{{note.text}}</td>
+                            <td><a href="#" data-toggle="modal" data-target="#textModal" ng-click="editNote(note.id)" data-id="{{note.id}}"><span class="glyphicon glyphicon-edit text-success"></span></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>        
+        
+    </div>
+
+    <footer class="row-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-2 col-sm-1">
+                        <a class="btn btn-success" href="mailto:vt541064@yandex.ru"><span class="glyphicon glyphicon-envelope"></span></a>
+                    </div>                         
+                    <div class="col-xs-10 col-sm-11 copyright">
+                        <p class="pull-left">&copy; 2017 Vasiliy Timoshenko</p>
+                    </div>
+                </div>
+            </div>
+    </footer>
+
+<script src="../node_modules/angular/angular.min.js"></script>    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/services.js"></script>
+</body>
+</html>
