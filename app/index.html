@@ -74,7 +74,11 @@
                         <tr ng-repeat="note in notes">
                             <td>{{note.id}}</td>
                             <td>{{note.text}}</td>
-                            <td><a href="#" data-toggle="modal" data-target="#textModal" ng-click="editNote(note.id)" data-id="{{note.id}}"><span class="glyphicon glyphicon-edit text-success"></span></a></td>
+                            <td>
+                                <a href="#" data-toggle="modal" data-target="#textModal" ng-click="editNote(note.id)" title="Edit this note">
+                                    <span class="glyphicon glyphicon-edit text-success"></span>
+                                </a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
